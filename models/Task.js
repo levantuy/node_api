@@ -2,7 +2,7 @@ var db = require('../dbconnection');
 
 var Task = {
     getAllTasks: function (callback) {
-        return db.query("Select * from notice", callback);
+        return db.query("Select * from notice order by NoticeId desc", callback);
     },
     getTaskById: function (id, callback) {
         return db.query("select * from notice where NoticeId=?", [id], callback);
@@ -26,7 +26,7 @@ var Task = {
         return db.query("delete from task where Id in (?)", [delarr], callback);
     },
     searchTasks: function (searchText, callback) {
-        return db.query("Select * from notice where title like concat('%', '"+ searchText +"', '%') or content like concat('%', '"+searchText+"', '%')", callback);
+        return db.query("Select * from notice where title like concat('%', '"+ searchText +"', '%') or content like concat('%', '"+searchText+"', '%') order by NoticeId desc", callback);
     }
 };
 module.exports = Task;
